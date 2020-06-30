@@ -1,0 +1,22 @@
+'use strict';
+
+module.exports = {
+  up: (queryInterface, Sequelize) => {
+    const passwordHash = require("password-hash");
+    let adminPass = passwordHash.generate("admin")
+    return queryInterface.bulkInsert('Users', [{
+      username: "admin",
+      email: 'admin@gmail.com',
+      password: adminPass,
+      money: 100.0,
+      role: true,
+      google: false,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }]);
+  },
+
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.bulkDelete('Users', null, {});
+  }
+};
